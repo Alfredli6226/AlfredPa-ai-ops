@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>HMA DIGITAL SDN BHD — Websites · H5 Apps · AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { scroll-behavior: smooth; overflow-x: hidden; width: 100%; position: relative; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #0c0f1a;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: rgba(34, 197, 94, 0.3); color: #fff; }
+
+:root {
+  --primary: #22c55e;
+  --grad-start: #4ade80;
+  --grad-end: #16a34a;
+  --whatsapp: #25D366;
+  --wa-bg: #0b141a;
+  --wa-header: #202c33;
+  --wa-bubble-in: #202c33;
+  --wa-bubble-out: #005c4b;
+}
+
+/* === 导航栏：极致紧凑设计 === */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 10px 25px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(12,15,26,0.9);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  height: 54px;
+}
+.logo {
+  display: flex; align-items: center; gap: 6px;
+  text-decoration: none; color: #fff;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600; font-size: 0.9rem;
+  white-space: nowrap;
+}
+.logo-mark {
+  width: 26px; height: 26px;
+  background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+  border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; font-weight: 800; color: #fff;
+}
+.nav-cta {
+  background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+  color: #fff !important; 
+  padding: 4px 10px; 
+  border-radius: 100px;
+  font-weight: 700 !important; 
+  font-size: 0.65rem; 
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  nav { padding: 0 12px; }
+  .logo { font-size: 0.75rem; }
+  .logo-mark { width: 22px; height: 22px; font-size: 0.55rem; }
+  .nav-right a:not(.nav-cta) { display: none; }
+}
+
+/* === 按钮样式 === */
+.btn-primary, .btn-outline {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 8px 18px; border-radius: 100px;
+  font-size: 0.75rem; font-weight: 600; text-decoration: none;
+  transition: 0.3s;
+}
+.btn-primary { background: var(--primary); color: #fff; border: none; }
+.btn-outline { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.15); }
+
+/* === 提示标签：点击消失逻辑 === */
+.interact-hint {
+  position: absolute; bottom: 10px; right: 10px;
+  background: rgba(34, 197, 94, 0.9);
+  color: white; font-size: 0.5rem; font-weight: 800;
+  padding: 3px 8px; border-radius: 4px;
+  z-index: 100; pointer-events: none;
+  text-transform: uppercase;
+  animation: hintPulse 2s infinite;
+}
+@keyframes hintPulse { 0%,100%{opacity:0.7; transform:scale(1);} 50%{opacity:1; transform:scale(1.05);} }
+
+/* === 照片堆栈样式 === */
+.hero-img-stack, .p1-visual { position: relative; width: 100%; cursor: pointer; }
+.hero-img, .p1-card {
+  position: absolute; border-radius: 12px; overflow: hidden;
+  border: 1px solid rgba(34, 197, 94, 0.15); 
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+.hero-img img, .p1-card img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+
+.hero-img.pos-1 { width: 85%; height: 85%; top: 0; left: 0; z-index: 10; opacity: 1; transform: scale(1); }
+.hero-img.pos-2 { width: 80%; height: 80%; top: 8%; left: 8%; z-index: 5; opacity: 0.7; transform: scale(0.95); }
+.hero-img.pos-3 { width: 75%; height: 75%; top: 16%; left: 16%; z-index: 1; opacity: 0.4; transform: scale(0.9); }
+
+.p1-card.front { width: 85%; height: 85%; top: 0; left: 0; z-index: 10; opacity: 1; }
+.p1-card.back { width: 75%; height: 75%; bottom: 0; right: 0; z-index: 5; opacity: 0.4; }
+
+/* === 布局控制 === */
+section { padding: 40px 20px; }
+.container { max-width: 1200px; margin: 0 auto; width: 100%; }
+
+.hero { min-height: 100vh; display: flex; align-items: center; padding-top: 80px; }
+.hero-content { 
+  display: grid; grid-template-columns: 1.1fr 0.9fr; 
+  gap: 40px; align-items: center; width: 100%;
+}
+.hero-left { text-align: left; }
+
+/* === 桌面端尺寸優化（填補空蕩、字體放大，不影響手機版） === */
+@media (min-width: 801px) {
+  /* 圖片區塊 */
+  #heroStack { 
+    max-width: 480px !important; 
+    margin: 0 auto !important; 
+  }
+  #websiteStack { 
+    max-width: 480px !important; 
+    height: 380px !important; 
+    margin: 0 auto !important; 
+  }
+  
+  /* 字體放大與間距調整 */
+  h1, .p1-title-styled { font-size: clamp(2.5rem, 6vw, 4.8rem) !important; }
+  p { font-size: 1.15rem !important; }
+  .hero-badge { font-size: 0.85rem !important; }
+  .btn-primary, .btn-outline { font-size: 1rem; padding: 12px 26px; }
+  .logo { font-size: 1.2rem; }
+  .nav-right a:not(.nav-cta) { font-size: 1rem; text-decoration: none; color: #fff; margin-left: 20px; }
+  .nav-cta { font-size: 0.9rem !important; padding: 10px 20px; margin-left: 20px; }
+  .portfolio-info { font-size: 1.1rem !important; }
+  .p3-wa-info h5 { font-size: 1rem !important; }
+  .p3-wa-msg { font-size: 0.9rem !important; }
+  .p3-wa-avatar { width: 36px !important; height: 36px !important; font-size: 0.8rem !important; }
+}
+
+@media (max-width: 800px) {
+  .hero-content { grid-template-columns: 1fr; text-align: center; gap: 20px; }
+  .hero-left { text-align: center; }
+  .hero-actions { justify-content: center; }
+  h1 { font-size: clamp(1.6rem, 8vw, 2.4rem) !important; }
+  
+  /* Websites 区块手机端文字在上，图片在下 */
+  .p1-reverse { display: flex; flex-direction: column; }
+  .p1-content { order: 1; margin-bottom: 30px; }
+  .p1-visual { order: 2; height: 260px !important; width: 100% !important; max-width: 320px !important; }
+}
+
+h1, .p1-title-styled { 
+  font-family: 'Outfit', sans-serif; font-weight: 700; line-height: 1.1; margin-bottom: 10px; 
+  font-size: clamp(1.8rem, 6vw, 3.2rem);
+}
+.grad { background: linear-gradient(135deg, var(--grad-start), #86efac); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+p { font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+/* Product 2: H5 Apps (强制左右并排) */
+.p2-visual { 
+  display: flex !important; flex-direction: row !important; 
+  justify-content: center; gap: 10px; margin-top: 20px; width: 100%; max-width: 440px; margin-left: auto; margin-right: auto; 
+}
+.p2-phone { 
+  width: 47% !important; aspect-ratio: 9/18.5; background: #000; border-radius: 16px; border: 1.5px solid rgba(255,255,255,0.1); 
+  padding: 4px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); overflow: hidden;
+}
+.p2-phone .screen { width: 100%; height: 100%; border-radius: 12px; overflow: hidden; background: #fff; }
+.p2-phone .screen img { width: 100%; height: 100%; object-fit: contain; }
+
+/* WhatsApp 仿真 */
+.p3-wa-frame {
+  max-width: 300px; width: 100%; margin: 0 auto;
+  background: var(--wa-bg); border-radius: 20px; overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.08);
+}
+.p3-wa-header { background: var(--wa-header); padding: 10px 14px; display: flex; align-items: center; gap: 10px; }
+.p3-wa-avatar { width: 28px; height: 28px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.6rem; color: #fff; }
+.p3-wa-info h5 { font-size: 0.75rem; font-weight: 600; }
+.p3-wa-info span { font-size: 0.55rem; color: var(--primary); }
+.p3-wa-body { padding: 12px; min-height: 220px; }
+.p3-wa-msg { position: relative; max-width: 85%; padding: 8px 12px; border-radius: 10px; font-size: 0.7rem; margin-bottom: 8px; line-height: 1.4; }
+.p3-wa-msg.in { background: var(--wa-bubble-in); color: #fff; border-top-left-radius: 0; }
+.p3-wa-msg.out { background: var(--wa-bubble-out); color: #fff; border-top-right-radius: 0; margin-left: auto; }
+
+/* Portfolio */
+.portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 24px; }
+.portfolio-card { background: rgba(255,255,255,0.02); border-radius: 10px; overflow: hidden; text-decoration: none; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+.portfolio-img { aspect-ratio: 16/9; width: 100%; overflow: hidden; }
+.portfolio-img img { width: 100%; height: 100%; object-fit: cover; }
+.portfolio-info { padding: 12px; font-family: 'Outfit'; font-weight: 600; font-size: 0.85rem; color: #fff; }
+
+/* 悬浮组件 */
+.edit-mode-btn { position: fixed; bottom: 12px; right: 12px; z-index: 1000; background: var(--primary); color: white; border: none; padding: 6px 12px; border-radius: 50px; font-size: 0.65rem; font-family: 'Outfit'; font-weight: 700; cursor: pointer; }
+.whatsapp-float { position: fixed; bottom: 12px; left: 12px; z-index: 1000; width: 38px; height: 38px; background: var(--whatsapp); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.whatsapp-float svg { width: 20px; height: 20px; fill: white; }
+
+.reveal { opacity: 0; transform: translateY(15px); transition: 0.6s ease-out; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<a href="https://wa.me/60165506664" class="whatsapp-float" target="_blank"><svg viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.7 17.8 69.7 27.2 106.2 27.2 122.4 0 222-99.6 222-222 0-59.3-23-115.1-65-157.1zM223.9 446.3c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 365.5l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.5-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.1-16.4-14.6-27.4-32.7-30.6-38.2-3.2-5.6-.3-8.6 2.5-11.3 2.5-2.5 5.5-6.5 8.3-9.7 2.8-3.3 3.7-5.6 5.5-9.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.2 5.8 23.5 9.2 31.5 11.8 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></a>
+
+<button class="edit-mode-btn" id="editToggle">✎ Admin Edit</button>
+
+<nav id="nav">
+  <a href="#" class="logo"><div class="logo-mark">hma</div>HMA DIGITAL SDN BHD</a>
+  <div class="nav-right">
+    <a href="#websites">Websites</a>
+    <a href="#apps">H5 Apps</a>
+    <a href="#ai">AI CS</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="https://wa.me/60165506664" class="nav-cta" target="_blank">Let's Talk</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content container">
+    <div class="hero-left">
+      <div class="hero-badge editable" data-id="hero-badge" style="font-size:0.55rem; opacity:0.8; margin-bottom:10px;">HMA DIGITAL · Aurora Sovo, KL</div>
+      <h1><span class="light" style="font-weight:300; opacity:0.5;">Innovative</span><br><span class="grad">digital</span><br>infrastructure.</h1>
+      <p class="editable" data-id="hero-desc">Custom solutions for Malaysian businesses.</p>
+      <div class="hero-actions" style="margin-top:20px; display:flex; gap:10px;">
+        <a href="#portfolio" class="btn-primary">View Work</a>
+        <a href="https://wa.me/60165506664" class="btn-outline" target="_blank">Quote</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img-stack" id="heroStack" style="max-width: 280px; aspect-ratio: 4/3; margin-left:auto;">
+        <div class="interact-hint">Tap to cycle ⟳</div>
+        <div class="hero-img pos-1"><img src="https://i.imgur.com/vhvtLNK.jpg"></div>
+        <div class="hero-img pos-2"><img src="https://i.imgur.com/YhSyRX8.jpg"></div>
+        <div class="hero-img pos-3"><img src="https://i.imgur.com/SFI69Su.jpg"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Product 1: Websites (Match Hero Style) -->
+<section class="product-1" id="websites">
+  <div class="container">
+    <div class="hero-content p1-reverse" style="grid-template-columns: 0.9fr 1.1fr;">
+      <div class="p1-visual reveal" id="websiteStack" style="height: 240px; max-width: 280px; margin-right:auto;">
+        <div class="interact-hint">Tap to flip ⇄</div>
+        <div class="p1-card front"><img src="https://i.imgur.com/YECZekz.jpg"></div>
+        <div class="p1-card back"><img src="https://i.imgur.com/O6H9a2w.jpg"></div>
+      </div>
+      <div class="p1-content reveal" style="text-align: left;">
+        <div class="section-num">01</div>
+        <h2 class="p1-title-styled">
+          Websites<br>
+          <span class="grad">Engineered</span><br>
+          for Performance.
+        </h2>
+        <p>Responsive designs that load instantly.</p>
+        <div style="margin-top:20px;">
+          <a href="https://wa.me/60165506664" class="btn-primary" target="_blank">Build Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Product 2: H5 Apps (PC/Mobile 并排) -->
+<section class="product-2" id="apps" style="background:#111827;">
+  <div class="container">
+    <div class="reveal" style="text-align: center; margin-bottom: 30px;">
+      <div class="section-num">02</div>
+      <h2 class="p1-title-styled" style="text-align:center;">H5 Apps. <br><span class="grad">Cloud Native.</span></h2>
+    </div>
+    <div class="p2-visual">
+      <div class="p2-phone"><div class="screen"><img src="https://i.imgur.com/RLHivzB.jpg"></div></div>
+      <div class="p2-phone"><div class="screen"><img src="https://i.imgur.com/q0RV75v.jpg"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Product 3: AI Service (WhatsApp仿真) -->
+<section class="product-3" id="ai">
+  <div class="container">
+    <div class="hero-content">
+      <div class="p3-info reveal">
+        <div class="section-num">03</div>
+        <h2 class="editable" data-id="p3-title">AI Customer<br><span class="grad">Service.</span></h2>
+        <p>Simulation of our automated agents on WhatsApp.</p>
+      </div>
+      <div class="p3-visual reveal">
+        <div class="p3-wa-frame">
+          <div class="p3-wa-header">
+            <div class="p3-wa-avatar">HMA</div>
+            <div class="p3-wa-info"><h5>HMA Digital Support</h5><span>online</span></div>
+          </div>
+          <div class="p3-wa-body">
+            <div class="p3-wa-msg in">Hello! 👋 How can HMA assist?</div>
+            <div class="p3-wa-msg out">I need a project quote.</div>
+            <div class="p3-wa-msg in">Sure! Tell us about your business.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Portfolio -->
+<section class="portfolio" id="portfolio" style="background:#111827;">
+  <div class="container">
+    <div class="reveal" style="text-align:center; margin-bottom:30px;">
+      <div class="section-num">WORK</div>
+      <h2 class="p1-title-styled" style="text-align:center;">Our <br><span class="grad">Portfolio.</span></h2>
+    </div>
+    <div class="portfolio-grid">
+      <a href="https://lawrencew7729-collab.github.io/tayar-demo/" target="_blank" class="portfolio-card reveal">
+        <div class="portfolio-img"><img src="https://i.imgur.com/e3MI7Dg.jpg"></div>
+        <div class="portfolio-info">Tayar Demo — Automotive Store</div>
+      </a>
+      <a href="https://lawrencew7729-collab.github.io/Caraudio-demo/" target="_blank" class="portfolio-card reveal">
+        <div class="portfolio-img"><img src="https://i.imgur.com/dXsuupK.jpg"></div>
+        <div class="portfolio-info">Car Audio — Premium Store</div>
+      </a>
+      <a href="https://lawrencew7729-collab.github.io/ceilingcompany/" target="_blank" class="portfolio-card reveal">
+        <div class="portfolio-img"><img src="https://i.imgur.com/xCHrJMs.jpg"></div>
+        <div class="portfolio-info">Ceiling Company — Construction</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner container">
+    <div class="logo"><div class="logo-mark">hma</div>HMA DIGITAL SDN BHD</div>
+    <p style="font-size:0.65rem; opacity:0.5;">No.13-06 Aurora Sovo, KL City</p>
+  </div>
+</footer>
+
+<script>
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+revealEls.forEach(el => observer.observe(el));
+
+window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40));
+
+const heroStack = document.getElementById('heroStack');
+if(heroStack) {
+  const heroImgs = Array.from(heroStack.querySelectorAll('.hero-img'));
+  heroStack.addEventListener('click', function() {
+    const hint = this.querySelector('.interact-hint');
+    if(hint) hint.remove(); // 交互后直接 remove 标签
+    const p1 = heroImgs.find(img => img.classList.contains('pos-1'));
+    const p2 = heroImgs.find(img => img.classList.contains('pos-2'));
+    const p3 = heroImgs.find(img => img.classList.contains('pos-3'));
+    p1.className = 'hero-img pos-3'; p2.className = 'hero-img pos-1'; p3.className = 'hero-img pos-2';
+  });
+}
+
+const websiteStack = document.getElementById('websiteStack');
+if(websiteStack) {
+  websiteStack.addEventListener('click', function() {
+    const hint = this.querySelector('.interact-hint');
+    if(hint) hint.remove(); // 交互后直接 remove 标签
+    const cards = Array.from(this.querySelectorAll('.p1-card'));
+    cards.forEach(card => {
+      if (card.classList.contains('front')) { card.classList.replace('front', 'back'); } 
+      else { card.classList.replace('back', 'front'); }
+    });
+  });
+}
+
+const editToggle = document.getElementById('editToggle');
+const editables = document.querySelectorAll('.editable');
+let isEditMode = false;
+document.addEventListener('DOMContentLoaded', () => {
+  editables.forEach(el => {
+    const saved = localStorage.getItem('hma-edit-' + el.dataset.id);
+    if (saved) el.innerHTML = saved;
+  });
+});
+editToggle.addEventListener('click', () => {
+  isEditMode = !isEditMode;
+  editToggle.classList.toggle('active', isEditMode);
+  editToggle.innerText = isEditMode ? "✓ Save" : "✎ Admin Edit";
+  editables.forEach(el => {
+    el.setAttribute('contenteditable', isEditMode ? 'true' : 'false');
+    if (!isEditMode) localStorage.setItem('hma-edit-' + el.dataset.id, el.innerHTML);
+  });
+});
+</script>
+</body>
+</html>
